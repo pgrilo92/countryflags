@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/main.css'%}"> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script defer src="{% static 'javascripts/main.js' %}"></script>
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="nav-extended">
+            <div class="nav-wrapper">
+                <a href="/" class="brand-logo">Logo</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li class="tab"><a href="/flags">Flags</a></li>
+                    <li class="tab"><a href="/about">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-content">
+                <ul class="right">
+                    <li class="tab"><a href="/flags">Flags</a></li>
+                    <li class="tab"><a href="/about">About</a></li>
+                </ul>
+            </div>
+        </nav>
+        <ul class="right sidenav" id="mobile-demo">
+            <li class="tab"><a href="/flags">Flags</a></li>
+            <li class="tab"><a href="/about">About</a></li>
+        </ul>
+        <main class="container">
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer class="page-footer">
+            <div class="right">All Rights Reserves, &copy; 2020 Flagsy &nbsp;</div>
+        </footer>
+    </body>
+</html>
