@@ -8,3 +8,6 @@ class Flag(models.Model):
     population = models.IntegerField()
     description = models.TextField(max_length=300)
 
+    def __str_(self):
+        return self.country
+
