@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Flag
 
 def home(request):
@@ -14,3 +15,16 @@ def flags_index(request):
 
 def about(request):
     return render(request, 'about.html')
+
+class FlagCreate(CreateView):
+    model = Flag
+    fields = '__all__'
+    success_url = '/flags/'
+
+class FlagUpdate(UpdateView):
+    model = Flag
+    fields = ['population', 'description']
+
+class FlagDelete(DeleteView):
+    model = Flag
+    success_url = '/flags/'

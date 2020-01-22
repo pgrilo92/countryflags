@@ -6,13 +6,13 @@
             <span class="card-title">{{ flag.country }}</span>
             <img src="{{flag.flag_img}}">
             <p>Capital: {{ flag.capital_city }}</p>
-            <p>Continent: {{ flag.breed }}</p>
+            <p>Continent: {{ flag.continent }}</p>
             <p>Population: {{ flag.population }}</p>
             <p>Description: {{ flag.description }}</p>
         </div>
         <div class="card-action">
-            <a href="#">Edit</a>
-            <a href="#">Delete</a>
+            <a href="{% url 'flags_update' flag.id %}">Edit</a>
+            <a href="{% url 'flags_delete' flag.id %}">Delete</a>
         </div>
     </div>
 </div>

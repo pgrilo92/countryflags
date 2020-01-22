@@ -14,25 +14,28 @@
             crossorigin="anonymous"></script>
     </head>
     <body>
-        <nav class="nav-extended teal">
+        <nav class="nav-extended">
             <div class="nav-wrapper">
                 <a href="/" class="brand-logo">Flagsy</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger">+</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li class="tab"><a href="/flags">Flags</a></li>
+                    <li><a href="{% url 'flags_create' %}">Add a Flag</a></li>
+
                     <li class="tab"><a href="/about">About</a></li>
                 </ul>
             </div>
         </nav>
         <ul class="right sidenav" id="mobile-demo">
             <li class="tab"><a href="/flags">Flags</a></li>
+            <li><a href="{% url 'flags_create' %}">Add a Flag</a></li>
             <li class="tab"><a href="/about">About</a></li>
         </ul>
         <main class="container">
             {% block content %}
             {% endblock %}
         </main>
-        <footer class="page-footer">
+        <footer class="page-footer" id="footer">
             <div class="right">All Rights Reserves, &copy; 2020 Flagsy &nbsp;</div>
         </footer>
     </body>
