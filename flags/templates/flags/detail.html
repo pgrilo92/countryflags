@@ -1,19 +1,95 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>  
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">{{ flag.country }}</span>
-            <img src="{{flag.flag_img}}">
-            <p>Capital: {{ flag.capital_city }}</p>
-            <p>Continent: {{ flag.continent }}</p>
-            <p>Population: {{ flag.population }}</p>
-            <p>Description: {{ flag.description }}</p>
+<div class="row">
+    <div class="col s6"> 
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{ flag.country }}</span>
+                <img src="{{flag.flag_img}}">
+                <p>Capital: {{ flag.capital_city }}</p>
+                <p>Continent: {{ flag.continent }}</p>
+                <p>Population: {{ flag.population }}</p>
+                <p>Description: {{ flag.description }}</p>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'flags_update' flag.id %}">Edit</a>
+                <a href="{% url 'flags_delete' flag.id %}">Delete</a>
+            </div>
         </div>
-        <div class="card-action">
-            <a href="{% url 'flags_update' flag.id %}">Edit</a>
-            <a href="{% url 'flags_delete' flag.id %}">Delete</a>
+    </div>
+    <div class="col s6">
+        <form action="{% url 'add_president' flag.id %}" method="POST">
+            {% csrf_token %}
+            {{ president_form.as_p }}
+            <input type="submit" class="btn" value="Add President">
+        </form>
+        <table class="striped">
+            <thead>
+                <tr><th>Name</th><th>Start</th><th>End</th><th></th></tr>
+            </thead>
+            <tbody>
+                {% for president in flag.president_set.all %}
+                    <tr>
+                        <td>{{president.name}}</td>
+                        <td>{{president.start_date}}</td>
+                        <td>{{president.end_date}}</td>
+                        <td><a href="{% url 'delete_president' president.id%}">X</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <h4>All Languages</h4>
+                {% for language in languages %}
+                    <p>{{language.language}}</p>
+                    <h3>Add Languages</h3>
+                    <div class="card-action">
+                        <form action="{% url 'add_language_to_flag' flag.id language.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Add Language" class="btn">
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <h4>Languages in this Country</h4>
+                {% for language in flag.languages.all %}
+                    <p>{{language.language}}</p>
+                    <h3>Add Languages</h3>
+                    <div class="card-action">
+                        <form action="{% url 'remove_language_to_flag' flag.id language.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Remove Language" class="btn">
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
+<script>
+    var dateEl = document.getElementById('id_start_date');
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+    var dateEl2 = document.getElementById('id_end_date');
+    M.Datepicker.init(dateEl2, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+</script>
 {% endblock %}
